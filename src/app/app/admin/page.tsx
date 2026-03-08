@@ -16,7 +16,7 @@ export default async function AdminPage() {
   if (!user) return null;
 
   const adminByProfile = await isAdmin(user.id);
-  const adminByEmail = (user.email ?? '').toLowerCase() === env.adminEmail.toLowerCase();
+  const adminByEmail = (user.email ?? '').toLowerCase() === env.adminEmail().toLowerCase();
   const isAllowed = adminByProfile || adminByEmail;
 
   if (!isAllowed) {
