@@ -34,29 +34,39 @@ as $$
 $$;
 
 -- 4) RLS Policies
+-- NOTE: Postgres doesn't support CREATE POLICY IF NOT EXISTS.
+-- We drop first to make this script re-runnable.
+
 -- profiles: users can read their own row; admins can read all
-create policy if not exists "profiles read own" on public.profiles
+
+drop policy if exists "profiles read own" on public.profiles;
+create policy "profiles read own" on public.profiles
 for select
 to authenticated
 using (id = auth.uid());
 
-create policy if not exists "profiles admin read all" on public.profiles
+drop policy if exists "profiles admin read all" on public.profiles;
+create policy "profiles admin read all" on public.profiles
 for select
 to authenticated
 using (public.is_admin(auth.uid()));
 
 -- attempts: users can read/insert their own; admins can read all
-create policy if not exists "attempts insert own" on public.attempts
+
+drop policy if exists "attempts insert own" on public.attempts;
+create policy "attempts insert own" on public.attempts
 for insert
 to authenticated
 with check (user_id = auth.uid());
 
-create policy if not exists "attempts read own" on public.attempts
+drop policy if exists "attempts read own" on public.attempts;
+create policy "attempts read own" on public.attempts
 for select
 to authenticated
 using (user_id = auth.uid());
 
-create policy if not exists "attempts admin read all" on public.attempts
+drop policy if exists "attempts admin read all" on public.attempts;
+create policy "attempts admin read all" on public.attempts
 for select
 to authenticated
 using (public.is_admin(auth.uid()));
