@@ -32,6 +32,7 @@ export default async function ProgressPage() {
     .from('attempts')
     .select('id,is_correct,created_at')
     .eq('user_id', user.id)
+    .eq('app_id', 'kids-english-coach')
     .order('created_at', { ascending: false })
     .limit(200);
 

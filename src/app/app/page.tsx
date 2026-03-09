@@ -71,6 +71,7 @@ export default function QuizPage() {
       if (!user) return;
 
       await supabase.from('attempts').insert({
+        app_id: 'kids-english-coach',
         user_id: user.id,
         word_id: word.id,
         is_correct: isCorrect,

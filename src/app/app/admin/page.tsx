@@ -36,6 +36,14 @@ export default async function AdminPage() {
     .order('created_at', { ascending: false })
     .limit(50);
 
+  const { data: attemptCounts } = await supabase
+    .from('attempts')
+    .select('user_id')
+    .eq('app_id', 'kids-english-coach');
+
+  const counts = new Map<string, number>();
+  (attemptCounts ?? []).forEach((a) => counts.set(a.user_id, (counts.get(a.user_id) ?? 0) + 1));
+
   async function promote() {
     'use server';
     await promoteMeToAdmin();
@@ -61,9 +69,10 @@ export default async function AdminPage() {
         <h2 className="font-semibold">Users</h2>
         <ul className="mt-2 space-y-2 text-sm">
           {(users ?? []).map((u) => (
-            <li key={u.id} className="flex items-center justify-between">
-              <span>{u.email}</span>
+            <li key={u.id} className="flex items-center justify-between gap-3">
+              <span className="truncate">{u.email}</span>
               <span className="text-gray-600">{u.role}</span>
+              <span className="text-gray-500">Attempts: {counts.get(u.id) ?? 0}</span>
             </li>
           ))}
         </ul>
