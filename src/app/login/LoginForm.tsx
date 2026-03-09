@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { createClient } from '@/lib/supabase/browser';
+import { BUILD_ID } from '@/lib/build';
 
 export function LoginForm({ next }: { next: string }) {
   const supabase = useMemo(() => createClient(), []);
@@ -86,7 +87,7 @@ export function LoginForm({ next }: { next: string }) {
         </form>
 
         <p className="mt-4 text-xs text-gray-500">
-          v0: Word → 4 Hebrew options + progress tracking.
+          v0: Word → 4 Hebrew options + progress tracking. <span className="opacity-60">build {BUILD_ID}</span>
         </p>
       </div>
     </div>
