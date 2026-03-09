@@ -29,8 +29,9 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isProtected = pathname.startsWith('/app');
+  const isAuthCallback = pathname.startsWith('/auth/callback');
 
-  if (isProtected) {
+  if (isProtected && !isAuthCallback) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -47,5 +48,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/app/:path*'],
+  matcher: ['/app/:path*', '/auth/callback'],
 };
