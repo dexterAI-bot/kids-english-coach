@@ -22,6 +22,8 @@ export function LoginForm({ next }: { next: string }) {
       if (error) throw error;
       window.location.href = next;
     } catch (e: any) {
+      // Surface useful debug info (especially for mobile Safari standalone caching/issues)
+      console.error('Auth error:', e);
       setError(e?.message ?? 'Login failed');
     } finally {
       setLoading(false);
