@@ -15,13 +15,13 @@ export default function QuizPage() {
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(false);
   const [stars, setStars] = useState(0);
 
   useEffect(() => {
     try {
       const v = localStorage.getItem('kc_autoplay');
-      if (v === '0') setAutoPlay(false);
+      if (v === '1') setAutoPlay(true);
     } catch {}
   }, []);
 
