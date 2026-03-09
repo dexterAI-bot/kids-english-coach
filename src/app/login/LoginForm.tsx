@@ -18,8 +18,10 @@ export function LoginForm({ next }: { next: string }) {
     setLoading(true);
 
     try {
-      const fn = mode === 'signin' ? supabase.auth.signInWithPassword : supabase.auth.signUp;
-      const { error } = await fn({ email, password });
+      const { error } =
+        mode === 'signin'
+          ? await supabase.auth.signInWithPassword({ email, password })
+          : await supabase.auth.signUp({ email, password });
       if (error) throw error;
       window.location.href = next;
     } catch (e: any) {
