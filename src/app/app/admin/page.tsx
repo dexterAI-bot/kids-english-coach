@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { env } from '@/lib/env';
+import { promoteMeToAdmin } from './actions';
+import { CreateUserForm } from './CreateUserForm';
 
 async function isAdmin(userId: string) {
   const supabase = await createClient();
@@ -34,12 +36,26 @@ export default async function AdminPage() {
     .order('created_at', { ascending: false })
     .limit(50);
 
+  async function promote() {
+    'use server';
+    await promoteMeToAdmin();
+  }
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold">Admin</h1>
         <p className="text-sm text-gray-600">All users + progress (v0)</p>
       </div>
+
+      <form action={promote}>
+        <button className="rounded border px-3 py-2">Make me admin (set role in DB)</button>
+        <p className="mt-2 text-xs text-gray-500">
+          This will upsert your profile with role=admin so we can remove the “admin by email” shortcut later.
+        </p>
+      </form>
+
+      <CreateUserForm />
 
       <div className="rounded-xl border p-4">
         <h2 className="font-semibold">Users</h2>
@@ -53,7 +69,7 @@ export default async function AdminPage() {
         </ul>
 
         <p className="mt-3 text-xs text-gray-500">
-          Next: add “Create user” UI (requires server-side service key).
+          Next: add “Create user” UI (requires server-side service key route).
         </p>
       </div>
     </div>
