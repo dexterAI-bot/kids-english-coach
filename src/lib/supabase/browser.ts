@@ -1,4 +1,5 @@
 import { createClient as createSupabaseClient, type SupportedStorage } from '@supabase/supabase-js';
+import fetch from 'cross-fetch';
 
 function safeStorage(): SupportedStorage {
   // iOS Safari (especially standalone / private modes) can throw or behave oddly with storage.
@@ -33,6 +34,7 @@ export function createClient() {
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
   return createSupabaseClient(url, anon, {
+    global: { fetch },
     auth: {
       storage: safeStorage(),
       persistSession: true,
