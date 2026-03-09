@@ -105,16 +105,16 @@ export default function QuizPage() {
             <Mascot className="w-[84px] h-[54px]" />
             <div>
               <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">בואי נשחק באנגלית!</h1>
-              <p className="text-sm text-slate-600">בחרי את המשמעות בעברית</p>
+              <p className="text-sm text-slate-700">בחרי את המשמעות בעברית</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm rounded-full bg-white/60 border border-white/70 px-3 py-1">
+            <span className="text-sm font-semibold rounded-full bg-white border border-slate-200 px-3 py-1">
               {progressLabel} • ⭐ {stars}
             </span>
 
-            <label className="text-sm flex items-center gap-2 rounded-full bg-white/60 border border-white/70 px-3 py-1">
+            <label className="text-sm font-semibold flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3 py-1">
               <input
                 type="checkbox"
                 checked={autoPlay}
@@ -131,7 +131,7 @@ export default function QuizPage() {
           <div className="flex items-center gap-2">
             <span className="text-sm text-slate-600">נושא:</span>
             <select
-              className="rounded-2xl border border-white/70 bg-white/60 px-3 py-2"
+              className="rounded-2xl border border-slate-200 bg-white px-3 py-2"
               value={deckId}
               onChange={(e) => {
                 const nextDeckId = e.target.value;
@@ -148,7 +148,7 @@ export default function QuizPage() {
           </div>
 
           <button
-            className="rounded-2xl border border-white/70 bg-white/60 px-4 py-2 hover:bg-white/80"
+            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 hover:bg-slate-50"
             onClick={() => newSession()}
           >
             התחלה מחדש
@@ -181,13 +181,13 @@ export default function QuizPage() {
         ) : word ? (
           <div className="mt-6 space-y-5">
             <div className="text-center">
-              <div className="text-5xl sm:text-6xl font-black tracking-wide" data-testid="english-word">
+              <div className="text-5xl sm:text-6xl font-black tracking-wide text-slate-900" data-testid="english-word">
                 {word.english}
               </div>
               <div className="mt-3 flex items-center justify-center gap-2">
                 <button
                   data-testid="play-audio"
-                  className="rounded-full bg-white/80 border border-white px-5 py-3 text-lg font-bold shadow hover:bg-white"
+                  className="rounded-full bg-white border border-slate-200 px-5 py-3 text-lg font-bold shadow hover:bg-slate-50"
                   onClick={() => speak(word.english)}
                 >
                   🔊 השמעה
